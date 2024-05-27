@@ -68,7 +68,22 @@ Saved/*
 
 # Compiled source files for the engine to use
 Intermediate/*
-Plugins/*/Intermediate/*
-
+Plugins/**/Intermediate/**
+Plugins/**/Binaries/**
+FlecsPlugin/Binaries/**
+FlecsPlugin/Intermediate/**
+FlecsPlugin/Build/**
 # Cache files for the editor to use
 DerivedDataCache/*
+.idea/
+.idea/
+*.modules
+
+#Rider
+Plugins/**/RiderLink/**/*
+Plugins/ContentPlugins/ExternalContent
+
+**/__ExternalActors__/**/*
+Plugins/UnrealImGuiTools
+Plugins/UnrealImGui
+Package
