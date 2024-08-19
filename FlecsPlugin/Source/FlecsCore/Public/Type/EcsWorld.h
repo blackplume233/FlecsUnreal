@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Entity.h"
 #include "Type.h"
 #include "UObject/Object.h"
 #include "FlecsCore/FlecsRaw/flecs.h"
@@ -33,13 +32,12 @@ public:
 	{
 		//https://www.flecs.dev/explorer/?host=localhost:7759
 		worldIns.set<flecs::Rest>({7759});
-		worldIns.import<flecs::monitor>();
+		worldIns.import<flecs::stats>();
 		
 		return true;
 	}
 	inline bool Progress(float DeltaTime) const
 	{
-
 		return worldIns.progress(DeltaTime);
 	}
 #pragma endregion 

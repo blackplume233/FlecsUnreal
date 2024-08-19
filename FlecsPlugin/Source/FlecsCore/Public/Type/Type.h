@@ -37,7 +37,7 @@ public:
 /**
  * 
  */
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FLECSCORE_API FEcsType : public FEcsTypeBase
 {
 	GENERATED_BODY()
@@ -213,9 +213,7 @@ public://CPP Function
 #pragma endregion
 
 
-#pragma region Native
-
-	
+#pragma region Nativ
 	template<typename T>
 	void id_native_type(flecs::world* world_ins)
 	{
@@ -223,8 +221,8 @@ public://CPP Function
 		entity_id = entity;
 		EcsId = entity_id;
 		AllowTag = entity->allow_tag;
-		Size = flecs::_::cpp_type<T>::size();
-		Alignment = flecs::_::cpp_type<T>::alignment();
+		Size = flecs::_::type<T>::size();
+		Alignment = flecs::_::type<T>::alignment();
 	}
 #pragma endregion
 #pragma region EnumReg

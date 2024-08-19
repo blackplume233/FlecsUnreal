@@ -74,9 +74,9 @@ FEcsType UEcsWorld::RegisterType(UField* Type)
 			else if (Property->IsA<FStrProperty>()){
 				member.type = worldIns.component<FString>();
 			}
-			else if (Property->IsA<FObjectProperty>()){
-				member.type = worldIns.component<UObject*>();
-			}
+			//else if (Property->IsA<FObjectProperty>()){
+			//	member.type = worldIns.component<UObject*>();
+			//}
 			else if (Property->IsA<FStructProperty>())
 			{
 				
@@ -117,5 +117,5 @@ void UEcsWorld::InitBuiltinTypes()
 	worldIns.component<FString>().set(EcsPrimitive{ecs_primitive_kind_t::EcsString});
 	worldIns.component<long>().set(EcsPrimitive{ecs_primitive_kind_t::EcsI64});
 	worldIns.component<FEcsType>().set(EcsPrimitive{ecs_primitive_kind_t::EcsEntity});
-	worldIns.component<UObject*>().set(EcsPrimitive{ecs_primitive_kind_t::EcsUPtr});
+	//worldIns.component<UObject*>().set(EcsPrimitive{ecs_primitive_kind_t::EcsUPtr});
 }

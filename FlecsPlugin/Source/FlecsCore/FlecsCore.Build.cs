@@ -9,6 +9,7 @@ public class FlecsCore : ModuleRules
         CStandard = CStandardVersion.C11;
         //bUseUnity = false;
         OptimizeCode = CodeOptimization.Never;
+        bWarningsAsErrors = false;
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
