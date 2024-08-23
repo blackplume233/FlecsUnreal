@@ -18,8 +18,6 @@ public:
 	UPROPERTY()
 	float fValue;
 	UPROPERTY()
-	UObject* ObjectPtr;
-	UPROPERTY()
 	FEcsComponentBase ComponentBase;
 };
 

@@ -6,6 +6,7 @@
 #include "Type.h"
 #include "UObject/Object.h"
 #include "FlecsCore/FlecsRaw/flecs.h"
+#include "Foudation/NativeNameCache.h"
 #include "EcsWorld.generated.h"
 
 
@@ -26,13 +27,15 @@ public:
 	UFUNCTION(Blueprintable,BlueprintCallable)
 	FEcsType RegisterType( UField* Type);
 
+	UFUNCTION(Blueprintable,BlueprintCallable)
+	FEcsType GetType(UStruct* Type);
 	void RegisterTypeMeta(FEcsType EcsType,UStruct* StructType);
 #pragma region Test
 	inline bool EnableMonitor()
 	{
 		//https://www.flecs.dev/explorer/?host=localhost:7759
-		worldIns.set<flecs::Rest>({7759});
 		worldIns.import<flecs::stats>();
+		worldIns.set<flecs::Rest>({});
 		
 		return true;
 	}
@@ -49,4 +52,5 @@ protected:
 private:
 	flecs::world worldIns;
 	TMap<const UField*, FEcsType> TypeRegisterMap{};
+	
 };

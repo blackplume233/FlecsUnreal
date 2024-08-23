@@ -43,7 +43,7 @@ FEcsType UEcsWorld::RegisterType(UField* Type)
 	}
 	else if(const auto StructType = Cast<UStruct>(Type))
 	{
-		EcsType.id(StructType,worldIns,Name,bAllowTag);
+		EcsType.id(StructType,worldIns,EcsTypeUtils::GetName(StructType),bAllowTag);
 		TypeRegisterMap.Add(Type, EcsType);
 #ifdef REGISTER_META
 		//reg layout
@@ -57,7 +57,7 @@ FEcsType UEcsWorld::RegisterType(UField* Type)
 			member.size = Property->GetSize();
 			member.offset = Property->GetOffset_ForDebug();
 			member.count = Property->ArrayDim;
-			member.name = TCHAR_TO_UTF8(ToCStr(Property->GetName())); 
+			member.name = EcsTypeUtils::GetNativeNameCache().GetNativeName(Property->GetFName());
 			if(Property->IsA<FIntProperty>())
 			{
 				member.type = worldIns.component<int>();
@@ -79,7 +79,13 @@ FEcsType UEcsWorld::RegisterType(UField* Type)
 			//}
 			else if (Property->IsA<FStructProperty>())
 			{
-				
+				auto StructProperty = StaticCast<FStructProperty*>(Property);
+				auto FieldEcsType = GetType(StructProperty->Struct);
+				if(!FieldEcsType.IsRegistered(worldIns))
+				{
+					FieldEcsType = RegisterType(StructProperty->Struct);
+				}
+				member.type = FieldEcsType.entity_id;
 			}
 		}
 
@@ -94,6 +100,16 @@ FEcsType UEcsWorld::RegisterType(UField* Type)
 
 	
 	return EcsType;
+}
+
+FEcsType UEcsWorld::GetType(UStruct* Type)
+{
+	FEcsType* TypeDefine = TypeRegisterMap.Find(Type);
+	if(TypeDefine != nullptr  && TypeDefine->IsRegistered(worldIns))
+	{
+		return *TypeDefine;
+	}
+	return FEcsType{};
 }
 
 void UEcsWorld::RegisterTypeMeta(FEcsType EcsType,UStruct* StructType)
