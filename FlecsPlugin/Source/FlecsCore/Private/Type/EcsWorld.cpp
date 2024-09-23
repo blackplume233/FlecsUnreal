@@ -49,7 +49,7 @@ FEcsType UEcsWorld::RegisterType(UField* Type)
 		//reg layout
 		auto meta = ecs_struct_desc_t();
 		int  memberIndex = 0;
-		meta.entity = EcsType.entity_id;
+		meta.entity = EcsType.Entity;
 		for(TFieldIterator<FProperty> it(StructType);it;++it,++memberIndex)
 		{
 			auto* Property = *it;
@@ -85,7 +85,7 @@ FEcsType UEcsWorld::RegisterType(UField* Type)
 				{
 					FieldEcsType = RegisterType(StructProperty->Struct);
 				}
-				member.type = FieldEcsType.entity_id;
+				member.type = FieldEcsType.Entity;
 			}
 		}
 
@@ -118,7 +118,7 @@ void UEcsWorld::RegisterTypeMeta(FEcsType EcsType,UStruct* StructType)
 	//reg layout
 	auto meta = ecs_struct_desc_t();
 	int  memberIndex = 0;
-	meta.entity = EcsType.entity_id;
+	meta.entity = EcsType.Entity;
 #endif
 	
 }
@@ -131,7 +131,7 @@ void UEcsWorld::InitBuiltinTypes()
 	worldIns.component<bool>().set(EcsPrimitive{ecs_primitive_kind_t::EcsBool});
 	worldIns.component<double>().set(EcsPrimitive{ecs_primitive_kind_t::EcsF64});
 	worldIns.component<FString>().set(EcsPrimitive{ecs_primitive_kind_t::EcsString});
-	worldIns.component<long>().set(EcsPrimitive{ecs_primitive_kind_t::EcsI64});
+	worldIns.component<long>().set(EcsPrimitive{ecs_primitive_kind_t::EcsF32});
 	worldIns.component<FEcsType>().set(EcsPrimitive{ecs_primitive_kind_t::EcsEntity});
 	//worldIns.component<UObject*>().set(EcsPrimitive{ecs_primitive_kind_t::EcsUPtr});
 }

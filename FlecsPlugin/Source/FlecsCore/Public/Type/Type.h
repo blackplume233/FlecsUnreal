@@ -27,7 +27,7 @@ public:
 	UPROPERTY()
 	FEcsID EcsId{};
 public:
-	flecs::entity_t entity_id = 0;
+	flecs::entity_t Entity = 0;
 	size_t Size = 0;
 	size_t Alignment = 0;
 	bool AllowTag = true;
@@ -61,10 +61,10 @@ public:
 		if (ResetCount != ecs_cpp_reset_count_get()) {
 			reset();
 		}
-		if (entity_id == 0) {
+		if (Entity == 0) {
 			return false;
 		}
-		if (world && !ecs_exists(world, entity_id)) {
+		if (world && !ecs_exists(world, Entity)) {
 			return false;
 		}
 		return true;
@@ -83,7 +83,7 @@ public://CPP Function
 		}
 
 		// If an identifier was already set, check for consistency
-		if (entity_id) {
+		if (Entity) {
 			ecs_assert(s_id == entity, ECS_INCONSISTENT_COMPONENT_ID,
 				type_name<T>());
 			ecs_assert(allow_tag == s_allow_tag, ECS_INVALID_PARAMETER, NULL);
@@ -95,8 +95,8 @@ public://CPP Function
 
 		// Component wasn't registered yet, set the values. Register component
 		// name as the fully qualified flecs path.
-		entity_id = entity;
-		EcsId = entity_id;
+		Entity = entity;
+		EcsId = Entity;
 		AllowTag = allow_tag;
 		Size = struct_type->PropertiesSize;
 		Alignment = struct_type->MinAlignment;
@@ -113,7 +113,7 @@ public://CPP Function
 		const char *name = nullptr, bool allow_tag = true, flecs::id_t id = 0,
 		bool is_component = true, bool *existing = nullptr)
 	{
-		if (!entity_id) {
+		if (!Entity) {
 			// If no world was provided the component cannot be registered
 			ecs_assert(world != nullptr, ECS_COMPONENT_NOT_REGISTERED, name);
 		} else {
@@ -124,8 +124,8 @@ public://CPP Function
 		// component has not yet been registered, or the component is used
 		// across more than one binary), or if the id does not exists in the
 		// world (indicating a multi-world application), register it.
-		if (!entity_id || (world && !ecs_exists(world, entity_id))) {
-			init(struct_type, entity_id ? entity_id : id, allow_tag);
+		if (!Entity || (world && !ecs_exists(world, Entity))) {
+			init(struct_type, Entity ? Entity : id, allow_tag);
 
 			ecs_assert(!id || s_id == id, ECS_INTERNAL_ERROR, NULL);
 
@@ -138,10 +138,10 @@ public://CPP Function
 			}
 
 			flecs::entity_t entity = ecs_cpp_component_register_explicit(
-					world, entity_id, id, name, EcsTypeUtils::GetName(struct_type), symbol,
+					world, Entity, id, name, EcsTypeUtils::GetName(struct_type), symbol,
 						Size, Alignment, is_component, existing);
 
-			entity_id = entity;
+			Entity = entity;
 			EcsId = entity;
 			StructWeakPtr = struct_type;
 			//Enum需要单独支持
@@ -155,7 +155,7 @@ public://CPP Function
 		ecs_assert(s_id != 0 && ecs_exists(world, s_id),
 			ECS_INTERNAL_ERROR, NULL);
 
-		return entity_id;
+		return Entity;
 	}
 
 	
@@ -183,7 +183,7 @@ public://CPP Function
 			// size. Components that don't have a size are tags, and tags don't
 			// require construction/destruction/copy/move's.
 			if (GetSize() && !existing) {
-				EcsTypeUtils::register_lifecycle_actions(struct_type,world, entity_id);
+				EcsTypeUtils::register_lifecycle_actions(struct_type,world, Entity);
 			}
 
 			if (prev_with) {
@@ -206,20 +206,20 @@ public://CPP Function
 		// By now we should have a valid identifier
 		ecs_assert(s_id != 0, ECS_INTERNAL_ERROR, NULL);
 
-		return entity_id;
+		return Entity;
 	}
 
 
 #pragma endregion
 
 
-#pragma region Nativ
+#pragma region Native
 	template<typename T>
 	void id_native_type(flecs::world* world_ins)
 	{
 		auto entity = world_ins->component<T>();
-		entity_id = entity;
-		EcsId = entity_id;
+		Entity = entity;
+		EcsId = Entity;
 		AllowTag = entity->allow_tag;
 		Size = flecs::_::type<T>::size();
 		Alignment = flecs::_::type<T>::alignment();
@@ -236,7 +236,7 @@ public://CPP Function
 		}
 
 		// If an identifier was already set, check for consistency
-		if (entity_id) {
+		if (Entity) {
 			ecs_assert(s_id == entity, ECS_INCONSISTENT_COMPONENT_ID,
 				type_name<T>());
 			ecs_assert(allow_tag == s_allow_tag, ECS_INVALID_PARAMETER, NULL);
@@ -248,8 +248,8 @@ public://CPP Function
 
 		// Component wasn't registered yet, set the values. Register component
 		// name as the fully qualified flecs path.
-		entity_id = entity;
-		EcsId = entity_id;
+		Entity = entity;
+		EcsId = Entity;
 		AllowTag = allow_tag;
 		Size = 0;
 		Alignment = 0;
@@ -261,7 +261,7 @@ public://CPP Function
 	const char *name = nullptr, bool allow_tag = false, flecs::id_t id = 0,
 	bool is_component = false, bool *existing = nullptr)
 	{
-		if (!entity_id) {
+		if (!Entity) {
 			// If no world was provided the component cannot be registered
 			ecs_assert(world != nullptr, ECS_COMPONENT_NOT_REGISTERED, name);
 		} else {
@@ -272,8 +272,8 @@ public://CPP Function
 		// component has not yet been registered, or the component is used
 		// across more than one binary), or if the id does not exists in the
 		// world (indicating a multi-world application), register it.
-		if (!entity_id || (world && !ecs_exists(world, entity_id))) {
-			init(struct_type, entity_id ? entity_id : id, allow_tag);
+		if (!Entity || (world && !ecs_exists(world, Entity))) {
+			init(struct_type, Entity ? Entity : id, allow_tag);
 
 			ecs_assert(!id || s_id == id, ECS_INTERNAL_ERROR, NULL);
 
@@ -286,10 +286,10 @@ public://CPP Function
 			}
 
 			flecs::entity_t entity = ecs_cpp_component_register_explicit(
-					world, entity_id, id, name, EcsTypeUtils::GetName(struct_type), symbol,
+					world, Entity, id, name, EcsTypeUtils::GetName(struct_type), symbol,
 						Size, Alignment, is_component, existing);
 
-			entity_id = entity;
+			Entity = entity;
 			EcsId = entity;
 
 			// If component is enum type, register constants
@@ -308,7 +308,7 @@ public://CPP Function
 		ecs_assert(s_id != 0 && ecs_exists(world, s_id),
 			ECS_INTERNAL_ERROR, NULL);
 
-		return entity_id;
+		return Entity;
 	}
 
 	flecs::id_t id(EnumTypeMeta struct_type, flecs::world_t *world = nullptr, const char *name = nullptr,
@@ -334,7 +334,7 @@ public://CPP Function
 			// size. Components that don't have a size are tags, and tags don't
 			// require construction/destruction/copy/move's.
 			if (GetSize() && !existing) {
-				EcsTypeUtils::register_lifecycle_actions(struct_type,world, entity_id);
+				EcsTypeUtils::register_lifecycle_actions(struct_type,world, Entity);
 			}
 
 			if (prev_with) {
@@ -357,7 +357,7 @@ public://CPP Function
 		// By now we should have a valid identifier
 		ecs_assert(s_id != 0, ECS_INTERNAL_ERROR, NULL);
 
-		return entity_id;
+		return Entity;
 	}
 #pragma endregion 
 protected:

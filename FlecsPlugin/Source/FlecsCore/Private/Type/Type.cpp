@@ -10,7 +10,7 @@
 
 void FEcsType::reset()
 {
-	entity_id = 0;
+	Entity = 0;
 	Size = 0;
 	Alignment = 0;
 	AllowTag = true;

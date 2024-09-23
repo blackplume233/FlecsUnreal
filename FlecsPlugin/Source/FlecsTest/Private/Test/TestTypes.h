@@ -14,11 +14,14 @@ struct FTestComponent : public FEcsComponentBase
 
 public:
 	UPROPERTY()
-	int Value;
+	int Value = 0;
 	UPROPERTY()
-	float fValue;
+	float fValue = 0.0f;
 	UPROPERTY()
-	FEcsComponentBase ComponentBase;
+	FEcsComponentBase ComponentBase = FEcsComponentBase();
+
+public:
+	void TestGameplayTagh();
 };
 
 /**

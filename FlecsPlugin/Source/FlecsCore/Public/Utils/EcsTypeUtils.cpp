@@ -1,7 +1,5 @@
 ﻿#include "EcsTypeUtils.h"
-
 #include <assert.h>
-
 #include "Foudation/NativeNameCache.h"
 
 const char* EcsTypeUtils::GetSymbol(UStruct* StructType)

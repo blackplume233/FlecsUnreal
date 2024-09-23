@@ -30,6 +30,10 @@ public:
 	UFUNCTION(Blueprintable,BlueprintCallable)
 	FEcsType GetType(UStruct* Type);
 	void RegisterTypeMeta(FEcsType EcsType,UStruct* StructType);
+
+#pragma region Spawn
+	
+#pragma endregion Spawn
 #pragma region Test
 	inline bool EnableMonitor()
 	{

@@ -10,5 +10,4 @@ public:
 private:
 	TMap<FName, const char *> NameToNativeNameMap{};
 	TMap<FString, const char *> StrToNativeNameMap{};
-	
 };

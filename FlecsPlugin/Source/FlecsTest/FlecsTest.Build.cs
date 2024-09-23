@@ -12,6 +12,7 @@ public class FlecsTest : ModuleRules
             {
                 "Core", 
                 "FlecsCore",
+                "GameplayTags"
                 
             }
         );

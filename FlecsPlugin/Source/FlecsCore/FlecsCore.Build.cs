@@ -14,7 +14,7 @@ public class FlecsCore : ModuleRules
             new string[]
             {
                 "Core",
-                "FlecsLib"
+                "FlecsLib", "Engine"
             }
         );
         
