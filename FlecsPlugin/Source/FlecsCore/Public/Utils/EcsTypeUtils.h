@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "UObject/Class.h"
-#include "FlecsCore/FlecsRaw/flecs.h"
+#include "flecs.h"
 #include "Foudation/NativeNameCache.h"
 
 class EcsTypeUtils

@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Type.h"
 #include "UObject/Object.h"
-#include "FlecsCore/FlecsRaw/flecs.h"
+#include "flecs.h"
 #include "Foudation/NativeNameCache.h"
 #include "EcsWorld.generated.h"
 

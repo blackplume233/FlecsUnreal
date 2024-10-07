@@ -6,9 +6,8 @@ public class FlecsCore : ModuleRules
     public FlecsCore(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.NoPCHs;
-        CStandard = CStandardVersion.C11;
-        //bUseUnity = false;
-        OptimizeCode = CodeOptimization.Never;
+        CStandard = CStandardVersion.C99;
+        bUseUnity = false;
         bWarningsAsErrors = false;
         PublicDependencyModuleNames.AddRange(
             new string[]
@@ -27,10 +26,19 @@ public class FlecsCore : ModuleRules
                 "SlateCore", 
             }
         );
+        
+        // PublicIncludePaths.AddRange(
+        //     new string[]
+        //     {
+        //         "FlecsCore/FlecsRaw/include",
+        //     }
+        // );
+        PublicIncludePaths.Add($"{ModuleDirectory}/FlecsRaw/include");
         PrivateDefinitions.Add("flecs_EXPORTS");
         
         if(Target.Type==TargetRules.TargetType.Editor)
         {
+            OptimizeCode = CodeOptimization.Never;
             if(RegisterMeta)
                 PrivateDefinitions.Add("REGISTER_META=1");
         }

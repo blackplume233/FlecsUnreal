@@ -17,11 +17,6 @@ public:
 	int Value = 0;
 	UPROPERTY()
 	float fValue = 0.0f;
-	UPROPERTY()
-	FEcsComponentBase ComponentBase = FEcsComponentBase();
-
-public:
-	void TestGameplayTagh();
 };
 
 /**

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FlecsCore/FlecsRaw/flecs.h"
+#include "flecs.h"
 #include "GameFramework/PlayerState.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "EcsEntity.generated.h"

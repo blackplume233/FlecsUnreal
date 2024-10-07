@@ -6,7 +6,7 @@
 #include "EcsStruct.h"
 #include "Entity.h"
 #include "UObject/Object.h"
-#include "FlecsCore/FlecsRaw/flecs.h"
+#include "flecs.h"
 #include "Utils/EcsTypeUtils.h"
 #include "Type.generated.h"
 

@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include "FlecsCore/FlecsRaw/flecs.h"
+
+#include "flecs.h"
 #include "Entity.generated.h"
 
 USTRUCT()
