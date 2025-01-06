@@ -21,6 +21,11 @@ public:
 	virtual ETickableTickType GetTickableTickType() const override;
 	virtual TStatId GetStatId() const override;
 	virtual bool ShouldCreateSubsystem(UObject* Outer) const override;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "FlecsTestSubsystem")
+	UEcsWorld* GetEcsWorld() const;
+
+	
 	UPROPERTY()
 	UEcsWorld* World;
 	// UEcsWorld* World;

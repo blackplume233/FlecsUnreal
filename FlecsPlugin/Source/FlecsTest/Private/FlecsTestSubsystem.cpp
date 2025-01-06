@@ -35,3 +35,5 @@ bool UFlecsTestSubsystem::ShouldCreateSubsystem(UObject* Outer) const
 {
 	return Outer->GetWorld() != nullptr &&( Outer->GetWorld()->WorldType  ==  EWorldType::PIE || Outer->GetWorld()->WorldType  ==  EWorldType::Game);
 }
+
+

@@ -30,11 +30,6 @@
 			"LoadingPhase": "Default"
 		},
 		{
-			"Name": "FlecsLib",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		},
-		{
 			"Name": "AngelScriptSupport",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"

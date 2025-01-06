@@ -13,7 +13,7 @@ public class FlecsCore : ModuleRules
             new string[]
             {
                 "Core",
-                "FlecsLib", "Engine"
+                "Engine"
             }
         );
         
@@ -27,12 +27,6 @@ public class FlecsCore : ModuleRules
             }
         );
         
-        // PublicIncludePaths.AddRange(
-        //     new string[]
-        //     {
-        //         "FlecsCore/FlecsRaw/include",
-        //     }
-        // );
         PublicIncludePaths.Add($"{ModuleDirectory}/FlecsRaw/include");
         PrivateDefinitions.Add("flecs_EXPORTS");
         
